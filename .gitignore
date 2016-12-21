@@ -14,6 +14,7 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+<<<<<<< HEAD
 avroresults/
 data/
 jsonresults/
@@ -30,3 +31,7 @@ target/*.*
 .scala_dependencies
 .worksheet
 .idea
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
