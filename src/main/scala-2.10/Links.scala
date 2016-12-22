@@ -31,7 +31,7 @@ object Links {
 
     val sparkConf = new SparkConf().setAppName("Links")
 
-    sparkConf.set("spark.cores.max", "16")
+    sparkConf.set("spark.cores.max", "2")
     sparkConf.set("spark.serializer", classOf[KryoSerializer].getName)
     sparkConf.set("spark.sql.tungsten.enabled", "true")
     sparkConf.set("spark.eventLog.enabled", "true")
@@ -46,11 +46,11 @@ object Links {
         // output to JSON and PARQUET
         val sqlContext = new SQLContext(sc)
         import sqlContext.implicits._
-	sqlContext.setConf("spark.sql.orc.filterPushdown", "true")
+        sqlContext.setConf("spark.sql.orc.filterPushdown", "true")
 
-	// Reference: https://spark.apache.org/docs/1.6.2/sql-programming-guide.html#json-datasets
-	val df1 = sqlContext.read.json("hdfs://tspanndev10.field.hortonworks.com:8020/linkprocessor/379875e9-5d99-4f88-82b1-fda7cdd7bc98.json")
-	df1.printSchema()
+        // Reference: https://spark.apache.org/docs/1.6.2/sql-programming-guide.html#json-datasets
+        val df1 = sqlContext.read.json("hdfs://tspanndev10.field.hortonworks.com:8020/linkprocessor/379875e9-5d99-4f88-82b1-fda7cdd7bc98.json")
+        df1.printSchema()
 
         df1.write.format("parquet").mode(org.apache.spark.sql.SaveMode.Append).parquet("parquetresults")
         df1.write.format("avro").mode(org.apache.spark.sql.SaveMode.Append).avro("avroresults")
